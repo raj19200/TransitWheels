@@ -1,0 +1,20 @@
+{
+  "name": "transitwheels",
+  "version": "1.0.0",
+  "description": "Transit wheels backend application",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Raj Shah",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "eslint": "^9.6.0",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.5",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.2",
+    "validator": "^13.12.0"
+  }
+}

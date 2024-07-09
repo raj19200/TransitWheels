@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const validator = require('validator');
 const userSchema = new mongoose.Schema({
   userName: {
@@ -32,14 +33,15 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    minLength: [8, 'Password must contain 8 lettera'],
+    minLength: 8,
     required: [true, 'Please enter a password'],
+    select: false,
   },
   confirmPassword: {
     type: String,
     required: [true, 'Please enter a confirm password'],
     validate: {
-      validator: (val) => {
+      validator: function (val) {
         return val == this.password;
       },
       message: 'Password and Confirm password must be same',
@@ -53,15 +55,12 @@ const userSchema = new mongoose.Schema({
   carDetails: {
     licenceNumber: {
       type: String,
-      required: [true, 'Please provide a licence number'],
     },
-    Number: {
+    carNumber: {
       type: String,
-      required: [true, 'Please enter a car number'],
     },
     model: {
       type: String,
-      required: [true, 'Please enter a model name'],
     },
     image: String,
     seats: Number,
@@ -72,5 +71,19 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.Model('User', userSchema);
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 12);
+  this.confirmPassword = undefined;
+  next();
+});
+
+userSchema.methods.checkPassword = async function (
+  candidatePassword,
+  userPassword,
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+const User = mongoose.model('User', userSchema);
 module.exports = User;

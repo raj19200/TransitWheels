@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
-const promisify = require('util');
+const { promisify } = require('util');
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -59,7 +59,6 @@ exports.register = async (req, res, next) => {
 // Login
 exports.login = async (req, res, next) => {
   const { userName, email, password } = req.body;
-  console.log(userName, email, password);
 
   if (!userName && !email) {
     return res.status(400).json({
@@ -104,9 +103,9 @@ exports.protect = async (req, res, next) => {
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
   ) {
-    token = req.headers.authorization.split('')[1];
-  } else if (req.cookie.jwt) {
-    token = req.cookie.jwt;
+    token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
   }
 
   if (!token) {

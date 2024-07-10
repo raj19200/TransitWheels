@@ -48,5 +48,5 @@ const parcelSchema = new mongoose.Schema({
   },
 });
 
-const Parcel = mongoose.Model('Parcel', parcelSchema);
+const Parcel = mongoose.model('Parcel', parcelSchema);
 module.exports = Parcel;

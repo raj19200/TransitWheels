@@ -7,5 +7,5 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 app.use('/user', userRouter);
-app.use('rental', rentalRouter);
+app.use('/rental', rentalRouter);
 module.exports = app;

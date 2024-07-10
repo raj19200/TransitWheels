@@ -23,5 +23,5 @@ const rideSchema = new mongoose.Schema({
   weight: Number,
 });
 
-const Ride = mongoose.Model('Ride', rideSchema);
+const Ride = mongoose.model('Ride', rideSchema);
 module.exports = Ride;

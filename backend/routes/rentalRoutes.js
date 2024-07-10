@@ -8,4 +8,10 @@ router
   .get(rentalController.getAllCars)
   .post(rentalController.createRental);
 
+router.route('/dashboard').get(rentalController.getMyBooking);
+router.route('/carOwnerDashboard').get(rentalController.getOwnerBooking);
+
+router
+  .route('/:carId')
+  .post(rentalController.carUserDetails, rentalController.bookCar);
 module.exports = router;

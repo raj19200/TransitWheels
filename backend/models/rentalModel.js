@@ -39,6 +39,11 @@ const rentalSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'User',
   },
+  active: {
+    type: Boolean,
+    default: true,
+    selsect: false,
+  },
 });
 
 const Rental = mongoose.model('Rental', rentalSchema);

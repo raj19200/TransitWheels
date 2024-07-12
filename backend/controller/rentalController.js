@@ -17,6 +17,9 @@ exports.createRental = async (req, res, next) => {
   };
 
   const car = await Rental.create(carDetails);
+  if (car.length == 0) {
+    return res.status(204);
+  }
   res.status(201).json({
     status: 'Success',
     data: { car },

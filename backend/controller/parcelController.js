@@ -1,4 +1,5 @@
 const Parcel = require('../models/parcelModel');
+const Ride = require('../models/rideModel');
 
 exports.createParcel = async (req, res, next) => {
   const parcelDetails = {
@@ -26,17 +27,22 @@ exports.createParcel = async (req, res, next) => {
 };
 
 exports.getAllParcel = async (req, res, next) => {
-  // sendercity and recipient city are dummy as for now. we will fetch it from database when we create a ride
+  const riderDetails = await Ride.findOne({ user: req.user._id });
+  console.log(riderDetails);
   const parcels = await Parcel.find({
-    senderCity: 'Anytown',
-    recipientCity: 'Sometown',
+    senderCity: { $in: riderDetails.intermediateCities },
+    recipientCity: { $in: riderDetails.intermediateCities },
   })
     .populate('user', 'firstName phoneNumber')
     .select('-_id -__v');
+  console.log(parcels);
   if (parcels.length == 0) {
-    return res.status(204);
+    return res.status(404).json({
+      status: 'Fail',
+      message: `There is no parcel available between ${riderDetails.fromCity.split(',')[0]} and ${riderDetails.toCity.split(',')[0]}`,
+    });
   }
-  res.status(201).json({
+  res.status(200).json({
     status: 'Success',
     data: { parcels },
   });

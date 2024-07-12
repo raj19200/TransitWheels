@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const parcelSchema = new mongoose.Schema({
-  senderName: {
-    type: String,
-    required: [true, 'Please enter a Sender Name'],
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
   },
   senderAddress: {
     type: String,
@@ -25,7 +25,7 @@ const parcelSchema = new mongoose.Schema({
     required: [true, 'Please enter a Recipient City'],
   },
   description: {
-    tyep: String,
+    type: String,
     trim: true,
     maxLength: [
       40,

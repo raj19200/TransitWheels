@@ -1,5 +1,5 @@
 const { default: mongoose } = require('mongoose');
-const RentalBooking = require('../models/rentalBooking');
+const RentalBooking = require('../models/rentalBookingModel');
 const Rental = require('../models/rentalModel');
 exports.createRental = async (req, res, next) => {
   const carDetails = {

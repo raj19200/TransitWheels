@@ -28,7 +28,7 @@ const createSendToken = (user, statusCode, res) => {
 exports.register = async (req, res, next) => {
   const userData = {
     userName: req.body.userName,
-    firstname: req.body.firstname,
+    firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
     phoneNumber: req.body.phoneNumber,

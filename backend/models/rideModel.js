@@ -44,7 +44,7 @@ rideSchema.pre('save', async function (next) {
 rideSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'user',
-    select: '-_id -__v -userName -email -address -userType',
+    select: '-__v -userName -email -address -userType',
   });
   next();
 });

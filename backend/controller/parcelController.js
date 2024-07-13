@@ -1,3 +1,4 @@
+const ParcelBooking = require('../models/parcelBookingModel');
 const Parcel = require('../models/parcelModel');
 const Ride = require('../models/rideModel');
 
@@ -28,14 +29,12 @@ exports.createParcel = async (req, res, next) => {
 
 exports.getAllParcel = async (req, res, next) => {
   const riderDetails = await Ride.findOne({ user: req.user._id });
-  console.log(riderDetails);
   const parcels = await Parcel.find({
     senderCity: { $in: riderDetails.intermediateCities },
     recipientCity: { $in: riderDetails.intermediateCities },
   })
     .populate('user', 'firstName phoneNumber')
-    .select('-_id -__v');
-  console.log(parcels);
+    .select('-__v');
   if (parcels.length == 0) {
     return res.status(404).json({
       status: 'Fail',
@@ -44,7 +43,7 @@ exports.getAllParcel = async (req, res, next) => {
   }
   res.status(200).json({
     status: 'Success',
-    data: { parcels },
+    parcels,
   });
 };
 
@@ -58,5 +57,41 @@ exports.getParcel = async (req, res, next) => {
   res.status(201).json({
     status: 'Success',
     data: { parcel },
+  });
+};
+
+exports.bookeParcel = async (req, res, next) => {
+  const bookParcel = await ParcelBooking.create({
+    parcel: req.params.parcelId,
+    user: req.user._id,
+  });
+
+  if (bookParcel.length == 0) {
+    return res.status(204);
+  }
+
+  res.status(200).json({
+    status: 'Success',
+    data: { bookParcel },
+  });
+};
+
+exports.getAllAssignedParcel = async (req, res, next) => {
+  const parcel = await ParcelBooking.find({ user: req.user._id });
+  res.status(200).json({
+    status: 'Success',
+    data: { parcel },
+  });
+};
+
+exports.deliverParcel = async (req, res, next) => {
+  const parcel = await ParcelBooking.findById(req.params.deliverID);
+  console.log(parcel);
+  await Parcel.findByIdAndUpdate(parcel.parcel, {
+    isDelivered: true,
+  });
+
+  res.status(200).json({
+    status: 'Success',
   });
 };

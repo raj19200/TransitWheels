@@ -10,4 +10,10 @@ router
   .post(parcelController.createParcel);
 
 router.route('/:parcelId').get(parcelController.getParcel);
+router
+  .route('/bookedParcel/assignedParcel/:deliverID?')
+  .get(parcelController.getAllAssignedParcel)
+  .post(parcelController.deliverParcel);
+router.route('/bookedParcel/:parcelId').post(parcelController.bookeParcel);
+
 module.exports = router;

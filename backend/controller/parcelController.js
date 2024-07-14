@@ -86,12 +86,49 @@ exports.getAllAssignedParcel = async (req, res, next) => {
 
 exports.deliverParcel = async (req, res, next) => {
   const parcel = await ParcelBooking.findById(req.params.deliverID);
-  console.log(parcel);
   await Parcel.findByIdAndUpdate(parcel.parcel, {
     isDelivered: true,
   });
 
   res.status(200).json({
     status: 'Success',
+  });
+};
+
+exports.updateParcel = async (req, res, next) => {
+  const updateParcel = await Parcel.findByIdAndUpdate(
+    req.params.parcelId,
+    req.body,
+    {
+      upsert: true,
+      runValidators: true,
+      new: true,
+    },
+  );
+  if (!updateParcel) {
+    return res.status(404).json({
+      status: 'Fail',
+      message: 'There is no parcel from this id to update',
+    });
+  }
+  res.status(200).json({
+    status: 'Success',
+    data: { updateParcel },
+  });
+};
+
+exports.deleteParcel = async (req, res, next) => {
+  const doc = await Parcel.findByIdAndDelete(req.params.parcelId);
+
+  if (!doc) {
+    return res.status(404).json({
+      status: 'success',
+      data: null,
+    });
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
   });
 };

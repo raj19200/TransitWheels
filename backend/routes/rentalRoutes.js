@@ -13,5 +13,7 @@ router.route('/carOwnerDashboard').get(rentalController.getOwnerBooking);
 
 router
   .route('/:carId')
-  .post(rentalController.carUserDetails, rentalController.bookCar);
+  .post(rentalController.carUserDetails, rentalController.bookCar)
+  .patch(rentalController.updateCar)
+  .delete(rentalController.deleteCar);
 module.exports = router;

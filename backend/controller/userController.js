@@ -134,3 +134,13 @@ exports.protect = async (req, res, next) => {
   req.user = currentUser;
   next();
 };
+
+exports.logout = async (req, res, next) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+  res.status(204).json({
+    status: 'Success',
+  });
+};

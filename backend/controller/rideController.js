@@ -134,3 +134,36 @@ exports.getAllCustomerBookings = async (req, res, next) => {
     data: { customerDetails },
   });
 };
+exports.updateRide = async (req, res, next) => {
+  const updateRide = await Ride.findByIdAndUpdate(req.params.rideId, req.body, {
+    upsert: true,
+    runValidators: true,
+    new: true,
+  });
+  if (!updateRide) {
+    return res.status(404).json({
+      status: 'Fail',
+      message: 'There is no parcel from this id to update',
+    });
+  }
+  res.status(200).json({
+    status: 'Success',
+    data: { updateRide },
+  });
+};
+
+exports.deleteRide = async (req, res, next) => {
+  const doc = await Ride.findByIdAndDelete(req.params.parcelId);
+
+  if (!doc) {
+    return res.status(404).json({
+      status: 'success',
+      data: null,
+    });
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+};

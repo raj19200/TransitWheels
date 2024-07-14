@@ -9,7 +9,11 @@ router
   .get(parcelController.getAllParcel)
   .post(parcelController.createParcel);
 
-router.route('/:parcelId').get(parcelController.getParcel);
+router
+  .route('/:parcelId')
+  .get(parcelController.getParcel)
+  .patch(parcelController.updateParcel)
+  .delete(parcelController.deleteParcel);
 router
   .route('/bookedParcel/assignedParcel/:deliverID?')
   .get(parcelController.getAllAssignedParcel)

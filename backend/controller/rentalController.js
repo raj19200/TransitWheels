@@ -145,3 +145,37 @@ exports.getOwnerBooking = async (req, res, next) => {
     data: { renterDetails },
   });
 };
+
+exports.updateCar = async (req, res, next) => {
+  const updateCar = await Rental.findByIdAndUpdate(req.params.carId, req.body, {
+    upsert: true,
+    runValidators: true,
+    new: true,
+  });
+  if (!updateCar) {
+    return res.status(404).json({
+      status: 'Fail',
+      message: 'There is no cars from this id to update',
+    });
+  }
+  res.status(200).json({
+    status: 'Success',
+    data: { updateCar },
+  });
+};
+
+exports.deleteCar = async (req, res, next) => {
+  const doc = await Rental.findByIdAndDelete(req.params.carId);
+
+  if (!doc) {
+    return res.status(404).json({
+      status: 'success',
+      data: null,
+    });
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+};

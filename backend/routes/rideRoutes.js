@@ -12,7 +12,11 @@ router
 
 router.route('/searchRide').post(rideController.searchRide);
 
-router.route('/:rideId').post(rideController.bookRide);
+router
+  .route('/:rideId')
+  .post(rideController.bookRide)
+  .patch(rideController.updateRide)
+  .delete(rideController.deleteRide);
 
 router.route('/dashBoard').get(rideController.getAllBookedRide);
 

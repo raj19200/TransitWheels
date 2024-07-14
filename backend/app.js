@@ -4,7 +4,6 @@ const rentalRouter = require('./routes/rentalRoutes');
 const parcelRouter = require('./routes/parcelRoutes');
 const rideRouter = require('./routes/rideRoutes');
 
-
 const app = express();
 
 app.use(express.json({ limit: '10kb' }));

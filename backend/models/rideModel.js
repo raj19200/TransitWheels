@@ -48,6 +48,6 @@ rideSchema.pre(/^find/, function (next) {
   });
   next();
 });
-
+rideSchema.index({ date: 1 });
 const Ride = mongoose.model('Ride', rideSchema);
 module.exports = Ride;

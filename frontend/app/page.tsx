@@ -1,9 +1,11 @@
 import NavBar from "@/components/navBar";
+import { MarqueeDemo } from "@/components/reviewCard";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <>
+      {/* Section 1 */}
       <div>
         <img
           src="/image.jpg"
@@ -12,27 +14,28 @@ export default function Home() {
         />
         <div className="text-center mt-10">
           <p className="text-4xl capitalize font-bold">
-            Find Your Perfect Ride
+            Find Your Perfect Drive
           </p>
           <div style={{ position: "relative", display: "inline-block" }}>
             <p
               style={{ position: "relative", zIndex: 1 }}
               className="text-2xl font-serif font-semibold italic mt-5 bg-slate-300"
             >
-              Trusted, Affordable, and Accessible Rides from Local Riders
+              Trusted, affordable, and accessible car rental from local hosts.
             </p>
           </div>
         </div>
       </div>
+      {/* Section 2 */}
       <div className="mt-5 mx-6 flex flex-col md:flex-row justify-between ">
-        <div className="flex justify-center items-center py-10 w-full md:w-3/4">
+        <div className="flex justify-center items-center py-10 w-full md:w-2/3">
           <img
             src="/image5.jpg"
             className="w-full h-auto md:w-2/3"
             alt="section 1"
           />
         </div>
-        <div className="flex flex-col justify-center items-center w-full md:w-1/4 leading-loose space-y-5 z-10">
+        <div className="flex flex-col justify-center items-center w-full md:w-1/3 leading-loose space-y-5 z-10">
           <p className="font-sans text-center text-4xl text-custom-periwinkle ">
             Let&apos;s find a ride
           </p>
@@ -52,6 +55,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <MarqueeDemo />
     </>
   );
 }

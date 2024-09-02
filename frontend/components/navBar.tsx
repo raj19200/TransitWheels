@@ -13,11 +13,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 type ClassName = string | false | null | undefined;
 const navigation = [
-  { name: "Ride", href: "#", current: false },
-  { name: "Rental", href: "#", current: false },
-  { name: "Parcel", href: "#", current: false },
-  { name: "About", href: "#", current: false },
-  { name: "Contact Us", href: "#", current: false },
+  { name: "Ride", href: "/ride", current: false },
+  { name: "Rental", href: "/rental", current: false },
+  { name: "Parcel", href: "/parcel", current: false },
+  { name: "About", href: "/about", current: false },
+  { name: "Contact Us", href: "/contact-us", current: false },
 ];
 
 function classNames(...classes: ClassName[]): string {
@@ -25,7 +25,7 @@ function classNames(...classes: ClassName[]): string {
 }
 
 export default function NavBar() {
-  const [isSignIn, setSignIn] = useState(true);
+  const [isSignIn, setSignIn] = useState(false);
   //  We need to check user isLogedIn or not using protect route which we implemented in backend.
   // useEffect(function () {}, []);
   return (
